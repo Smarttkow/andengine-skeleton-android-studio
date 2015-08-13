@@ -1,0 +1,46 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "smarttkow.dotpanic"
+        minSdkVersion 15
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled = true
+    }
+
+    sourceSets{
+        main{
+            java{
+                exclude "**/com/badlogic/*"
+                exclude "**/org/*"
+            }
+        }
+    }
+
+    packagingOptions{
+        exclude 'main/AndroidManifest.xml'
+        exclude 'main/jni/Android.mk'
+        exclude 'main/jni/Application.mk'
+        exclude 'main/jni/build.sh'
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile project(':andEngine')
+    compile project(':andEnginePhysicsBox2DExtension')
+}
